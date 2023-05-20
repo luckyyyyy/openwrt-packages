@@ -483,7 +483,7 @@ mwan3_create_iface_route()
 			# if 'connected' was called after 'ifup'
 			[ -n "$tbl" ] && [ -z "${tbl##*$route_line$'\n'*}" ] && continue
 			$IP route add table $id $route_line ||
-				LOG warn "failed to add $route_line to table $id"
+				LOG debug "Route '$route_line' already added to table $id"
 		fi
 
 	done
@@ -735,8 +735,8 @@ mwan3_set_policies_iptables()
 
 mwan3_set_sticky_iptables()
 {
-	local rule="${1}"
-	local interface="${2}"
+	local interface="${1}"
+	local rule="${2}"
 	local ipv="${3}"
 	local policy="${4}"
 
@@ -879,7 +879,7 @@ mwan3_set_user_iptables_rule()
 		fi
 
 		mwan3_push_update -F "mwan3_rule_$1"
-		config_foreach mwan3_set_sticky_iptables interface $ipv "$policy"
+		config_foreach mwan3_set_sticky_iptables interface "$rule" "$ipv" "$policy"
 
 
 		mwan3_push_update -A "mwan3_rule_$1" \

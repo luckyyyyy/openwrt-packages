@@ -1,13 +1,13 @@
 #
-# Copyright (c) 2015-2022 Dirk Brenken (dev@brenken.org)
+# Copyright (c) 2015-2023 Dirk Brenken (dev@brenken.org)
 # This is free software, licensed under the GNU General Public License v3.
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=adblock
-PKG_VERSION:=4.1.4
-PKG_RELEASE:=2
+PKG_VERSION:=4.1.5
+PKG_RELEASE:=7
 PKG_LICENSE:=GPL-3.0-or-later
 PKG_MAINTAINER:=Dirk Brenken <dev@brenken.org>
 

@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=yq
-PKG_VERSION:=4.27.3
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_VERSION:=4.33.2
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/mikefarah/yq/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=21865c7db6f0aa4d019106f8b7bfceb0ca746ca0265f4d61c855edb0ed41b17d
+PKG_HASH:=eea0435bef57a4523dbbe3680fafc321d821986a49a92af69b0c637a428d454d
 
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MIT
