@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pdns
-PKG_VERSION:=4.6.3
+PKG_VERSION:=4.4.1
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://downloads.powerdns.com/releases/
-PKG_HASH:=acd06b89ca01d1adf61b906604614f0e1d77a1e94eeecade8ff5d53a16db7389
+PKG_HASH:=03fa7c181c666a5fc44a49affe7666bd385d46c1fe15088caff175967e85ab6c
 
 PKG_MAINTAINER:=Peter van Dijk <peter.van.dijk@powerdns.com>
 PKG_LICENCE:=GPL-2.0-only
@@ -171,14 +171,12 @@ define Package/pdns/conffiles
 /etc/init.d/pdns
 endef
 
-TARGET_CXX+=-std=c++17
-
 CONFIGURE_ARGS+= \
 	--sysconfdir=/etc/powerdns \
 	--libdir=/usr/lib/powerdns  \
 	--with-dynmodules="$(foreach backend,$(PDNS_BACKENDS),$(if $(CONFIG_PACKAGE_pdns-backend-$(backend)),$(PDNS_BACKEND_$(backend)_LIB),))" \
 	--with-lua="lua" \
-	--with-modules="bind" \
+	--with-modules="bind random" \
 	--with-mysql-lib=$(STAGING_DIR)/usr \
 	--with-mysql-includes=$(STAGING_DIR)/usr \
 	$(if $(CONFIG_PACKAGE_pdns-tools),--enable-tools,) \
