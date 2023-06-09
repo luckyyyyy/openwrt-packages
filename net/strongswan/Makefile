@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=strongswan
 PKG_VERSION:=5.9.5
-PKG_RELEASE:=13
+PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://download.strongswan.org/ https://download2.strongswan.org/
@@ -95,7 +95,6 @@ PKG_MOD_AVAILABLE:= \
 	updown \
 	vici \
 	whitelist \
-	wolfssl \
 	x509 \
 	xauth-eap \
 	xauth-generic \
@@ -131,7 +130,8 @@ $(call Package/strongswan/Default)
   MENU:=1
   DEPENDS:= +libpthread +ip \
 	+kmod-crypto-authenc \
-	+kmod-ipsec +kmod-ipsec4 +IPV6:kmod-ipsec6
+	+kmod-ipsec +kmod-ipsec4 +IPV6:kmod-ipsec6 \
+	+kmod-ipt-ipsec +iptables-mod-ipsec
 endef
 
 define Package/strongswan/config
@@ -224,7 +224,6 @@ $(call Package/strongswan/Default)
 	+strongswan-mod-updown \
 	+strongswan-mod-vici \
 	+strongswan-mod-whitelist \
-	+strongswan-mod-wolfssl \
 	+strongswan-mod-x509 \
 	+strongswan-mod-xauth-eap \
 	+strongswan-mod-xauth-generic \
@@ -670,9 +669,9 @@ $(eval $(call BuildPlugin,attr-sql,SQL based config,+strongswan-charon))
 $(eval $(call BuildPlugin,bliss,BLISS crypto,+strongswan-libnttfft +strongswan-mod-mgf1 +strongswan-mod-hmac))
 $(eval $(call BuildPlugin,blowfish,Blowfish crypto,))
 $(eval $(call BuildPlugin,ccm,CCM AEAD wrapper crypto,))
-$(eval $(call BuildPlugin,chapoly,ChaCha20-Poly1305 AEAD crypto,+kmod-crypto-chacha20poly1305))
+$(eval $(call BuildPlugin,chapoly,ChaCha20-Poly1305 AEAD crypto,))
 $(eval $(call BuildPlugin,cmac,CMAC crypto,))
-$(eval $(call BuildPlugin,connmark,netfilter connection marking,+libip4tc))
+$(eval $(call BuildPlugin,connmark,netfilter connection marking,))
 $(eval $(call BuildPlugin,constraints,advanced X509 constraint checking,))
 $(eval $(call BuildPlugin,coupling,IKEv2 plugin to couple peer certificates permanently to authentication,))
 $(eval $(call BuildPlugin,ctr,Counter Mode wrapper crypto,))
@@ -689,7 +688,7 @@ $(eval $(call BuildPlugin,eap-radius,EAP RADIUS auth,))
 $(eval $(call BuildPlugin,eap-tls,EAP TLS auth,+strongswan-libtls))
 $(eval $(call BuildPlugin,farp,fake arp respsonses,))
 $(eval $(call BuildPlugin,fips-prf,FIPS PRF crypto,+strongswan-mod-sha1))
-$(eval $(call BuildPlugin,forecast,forward multi/broadcast traffic,+libip4tc +kmod-ipt-conntrack-extra))
+$(eval $(call BuildPlugin,forecast,forward multi/broadcast traffic,+kmod-ipt-conntrack-extra))
 $(eval $(call BuildPlugin,gcm,GCM AEAD wrapper crypto,))
 $(eval $(call BuildPlugin,gcrypt,libgcrypt,+PACKAGE_strongswan-mod-gcrypt:libgcrypt))
 $(eval $(call BuildPlugin,gmp,libgmp,+PACKAGE_strongswan-mod-gmp:libgmp))
@@ -734,10 +733,9 @@ $(eval $(call BuildPlugin,stroke,Stroke,+strongswan-charon +strongswan-ipsec))
 $(eval $(call BuildPlugin,test-vectors,crypto test vectors,))
 $(eval $(call BuildPlugin,uci,UCI config interface,+PACKAGE_strongswan-mod-uci:libuci))
 $(eval $(call BuildPlugin,unity,Cisco Unity extension,))
-$(eval $(call BuildPlugin,updown,updown firewall,+iptables-legacy +iptables-mod-ipsec +kmod-ipt-ipsec))
+$(eval $(call BuildPlugin,updown,updown firewall,))
 $(eval $(call BuildPlugin,vici,Versatile IKE Configuration Interface,))
 $(eval $(call BuildPlugin,whitelist,peer identity whitelisting,))
-$(eval $(call BuildPlugin,wolfssl,WolfSSL crypto,+PACKAGE_strongswan-mod-wolfssl:libwolfssl))
 $(eval $(call BuildPlugin,x509,x509 certificate,))
 $(eval $(call BuildPlugin,xauth-eap,EAP XAuth backend,))
 $(eval $(call BuildPlugin,xauth-generic,generic XAuth backend,))
